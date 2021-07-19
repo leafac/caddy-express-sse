@@ -1,4 +1,4 @@
-# Caddy Doesn’t Seem to Flush Response Buffer, Breaking Reverse Proxy of Server-Sent Events
+# Caddy Doesn’t Seem to Flush Response Buffer, Breaking Reverse Proxy of Server-Sent Events (https://github.com/caddyserver/caddy/issues/4247)
 
 > For your convenience, you may also clone the code for this issue from <https://github.com/leafac/caddy-express-sse>
 
