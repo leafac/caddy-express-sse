@@ -2,6 +2,7 @@ localhost
 
 reverse_proxy 127.0.0.1:4000
 
+# From https://caddy.community/t/v2-server-sent-events-from-flask-to-caddy-via-gunicorn/7806/2. Doesn’t affect the behavior.
 # reverse_proxy 127.0.0.1:4000 {
 #   flush_interval -1
 # }
