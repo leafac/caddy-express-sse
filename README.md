@@ -101,6 +101,10 @@ Now how the response headers didn’t arrive.
 
 In both cases the connection is kept open, which is the intended behavior.
 
+**Why Is This an Issue?**
+
+As far as I can tell, browsers doesn’t fire an `open` event on the `EventSource` until the headers are received.
+
 **Other Things I Tried without Success (They Don’t Seem to Affect the Behavior at All):**
 
 - Change my Caddyfile to use `flush_interval -1` (see <https://caddy.community/t/v2-server-sent-events-from-flask-to-caddy-via-gunicorn/7806/2>).
@@ -119,6 +123,12 @@ In both cases the connection is kept open, which is the intended behavior.
   (Weirdly enough, writing it this way makes it not work even when I make the request to the Node.js server directly, without Caddy in the middle. Using a `.flushHeaders()` right after the call to `.writeHead()` seems to fix it.)
 
 **My Suspicion:** The `flush_interval` configuration seems to be ignored, regardless of whether it was set explicitly in the `Caddyfile` or it was set by Caddy itself because the response `Content-Type` is `text/event-stream` (see <https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#streaming> and <https://github.com/caddyserver/caddy/blob/master/modules/caddyhttp/reverseproxy/streaming.go#L104-L108>).
+
+**A Workaround:** Send a dummy server-sent event to force Caddy to flush the headers:
+
+```javascript
+res.type("text/event-stream").write(":\n\n");
+```
 
 <details>
 <summary><strong>Versions</strong></summary>

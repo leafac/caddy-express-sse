@@ -19,6 +19,9 @@ app.get("/", (req ,res) => {
   //   'X-Accel-Buffering': 'no',
   //   'Transfer-Encoding': 'chunked',
   // }).flushHeaders();
+
+  // Workaround
+  // res.type("text/event-stream").write(":\n\n");
 });
 
 app.listen(4000);
